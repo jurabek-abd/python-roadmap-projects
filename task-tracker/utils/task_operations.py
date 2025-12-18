@@ -37,3 +37,32 @@ def delete_task(tasks, id):
         continue
 
     return tasks
+
+
+def mark_task_in_progress(tasks, id):
+    for task in tasks:
+        if task["id"] == id and not task["status"] == "in-progress":
+            task["status"] = "in-progress"
+            task["updatedAt"] = get_timestamp()
+            break
+        continue
+
+    return tasks
+
+
+def mark_task_done(tasks, id):
+    for task in tasks:
+        if task["id"] == id and not task["status"] == "done":
+            task["status"] = "done"
+            task["updatedAt"] = get_timestamp()
+            break
+        continue
+
+    return tasks
+
+
+def list_tasks(tasks, status):
+    if status:
+        return list(filter(lambda t: t["status"] == status, tasks))
+
+    return tasks
