@@ -17,25 +17,52 @@ def main():
     tasks = load_tasks()
 
     if args.command == "add":
-        save_tasks(add_task(tasks, args.description))
-        print(f"Task added successfully (ID: {tasks[-1]['id']})")
+        try:
+            tasks = add_task(tasks, args.description)
+            save_tasks(tasks)
+            print(f"Task added successfully (ID: {tasks[-1]['id']})")
+        except ValueError as e:
+            print(f"Error: {e}")
     elif args.command == "update":
-        save_tasks(update_task(tasks, args.id, args.description))
-        print(f"Task updated successfully (ID: {args.id})")
+        try:
+            tasks, success = update_task(tasks, args.id, args.description)
+            if success:
+                save_tasks(tasks)
+                print(f"Task updated successfully (ID: {args.id})")
+            else:
+                print(f"Error: Task with ID {args.id} not found")
+        except ValueError as e:
+            print(f"Error: {e}")
     elif args.command == "delete":
-        save_tasks(delete_task(tasks, args.id))
-        print(f"Task deleted successfully (ID: {args.id})")
+        tasks, success = delete_task(tasks, args.id)
+        if success:
+            save_tasks(tasks)
+            print(f"Task deleted successfully (ID: {args.id})")
+        else:
+            print(f"Error: Task with ID {args.id} not found")
     elif args.command == "mark-in-progress":
-        save_tasks(mark_task_in_progress(tasks, args.id))
-        print(f"Task marked as in-progress successfully (ID: {args.id})")
+        tasks, success = mark_task_in_progress(tasks, args.id)
+        if success:
+            save_tasks(tasks)
+            print(f"Task marked as in-progress successfully (ID: {args.id})")
+        else:
+            print(f"Error: Task with ID {args.id} not found")
     elif args.command == "mark-done":
-        save_tasks(mark_task_done(tasks, args.id))
-        print(f"Task marked as done successfully (ID: {args.id})")
+        tasks, success = mark_task_done(tasks, args.id)
+        if success:
+            save_tasks(tasks)
+            print(f"Task marked as done successfully (ID: {args.id})")
+        else:
+            print(f"Error: Task with ID {args.id} not found")
     elif args.command == "list":
-        if not tasks:
-            print("You don't have any tasks yet.")
-        for task in list_tasks(tasks, args.status):
-            print(f"(ID: {task['id']}): {task['description']}.")
+        filtered_tasks = list_tasks(tasks, args.status)
+        if not filtered_tasks:
+            status_msg = f" with status '{args.status}'" if args.status else ""
+            print(f"You don't have any tasks{status_msg}.")
+        else:
+            for task in filtered_tasks:
+                status_indicator = f"[{task['status']}]"
+                print(f"ID {task['id']}: {task['description']} {status_indicator}")
 
 
 if __name__ == "__main__":
