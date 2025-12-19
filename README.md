@@ -65,6 +65,8 @@ That’s intentional.
 
 ## Projects completed
 
-- [Task Tracker](https://roadmap.sh/projects/task-tracker).
+- [Task Tracker](https://roadmap.sh/projects/task-tracker)
+
+---
 
 Thanks for checking this out 🙂

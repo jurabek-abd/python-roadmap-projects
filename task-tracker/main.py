@@ -9,12 +9,64 @@ from utils.task_operations import (
     update_task,
 )
 
+# COMMON_TASK_OPERATIONS = {
+#     "delete": ("Task deleted successfully", delete_task),
+#     "mark-in-progress": (
+#         "Task marked as in-progress successfully",
+#         mark_task_in_progress,
+#     ),
+#     "mark-done": ("Task marked as done successfully", mark_task_done),
+# }
+
+
+# def handle_common_operation(command, operation, tasks, task_id):
+#     new_tasks, success = operation(tasks, task_id)
+#     if success:
+#         save_tasks(new_tasks)
+#         print(f"{COMMON_TASK_OPERATIONS[command][0]} (ID: {task_id})")
+#     else:
+#         print(f"Error: Task with ID {task_id} not found")
+
 
 def main():
     parser = create_parsers()
     args = parser.parse_args()
 
     tasks = load_tasks()
+
+    # command = args.command
+
+    # match command:
+    #     case "add":
+    #         try:
+    #             tasks = add_task(tasks, args.description)
+    #             save_tasks(tasks)
+    #             print(f"Task added successfully (ID: {tasks[-1]['id']})")
+    #         except ValueError as e:
+    #             print(f"Error: {e}")
+    #     case "update":
+    #         try:
+    #             tasks, success = update_task(tasks, args.id, args.description)
+    #             if success:
+    #                 save_tasks(tasks)
+    #                 print(f"Task updated successfully (ID: {args.id})")
+    #             else:
+    #                 print(f"Error: Task with ID {args.id} not found")
+    #         except ValueError as e:
+    #             print(f"Error: {e}")
+    #     case "delete" | "mark-in-progress" | "mark-done":
+    #         handle_common_operation(
+    #             command, COMMON_TASK_OPERATIONS[command][1], tasks, args.id
+    #         )
+    #     case "list":
+    #         filtered_tasks = list_tasks(tasks, args.status)
+    #         if not filtered_tasks:
+    #             status_msg = f" with status '{args.status}'" if args.status else ""
+    #             print(f"You don't have any tasks{status_msg}.")
+    #         else:
+    #             for task in filtered_tasks:
+    #                 status_indicator = f"[{task['status']}]"
+    #                 print(f"ID {task['id']}: {task['description']} {status_indicator}")
 
     if args.command == "add":
         try:
