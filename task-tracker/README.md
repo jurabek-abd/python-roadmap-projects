@@ -17,7 +17,7 @@ A simple command-line interface (CLI) application to track and manage your tasks
 
 ## Requirements
 
-- Python 3.6 or higher
+- Python 3.10 or higher
 - No external dependencies (uses only Python standard library)
 
 ## Installation
