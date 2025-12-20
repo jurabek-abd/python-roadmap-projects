@@ -1,4 +1,5 @@
 __pycache__/
 *.pyc
 
-storage.json
+task-tracker/storage.json
+github-user-activity/cache.json
