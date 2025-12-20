@@ -20,27 +20,31 @@ def format_event(event):
     return None
 
 
-def main():
-    parser = create_parsers()
-    args = parser.parse_args()
-
-    cache = load_cache()
-
-    if args.username in cache:
-        print("Yes")
-
-    url = f"https://api.github.com/users/{args.username}/events"
-
-    events = fetch_user_activity(url)
-    save_cache({args.username: events})
-
-    # Output
+def print_activity(events):
     print("\nOutput:\n")
     for event in events:
         message = format_event(event)
         if message:
             print(message)
     print("\n")
+
+
+def main():
+    parser = create_parsers()
+    args = parser.parse_args()
+    username = args.username
+
+    cache = load_cache()
+
+    if username in cache:
+        return print_activity(cache[username])
+
+    url = f"https://api.github.com/users/{username}/events"
+
+    events = fetch_user_activity(url)
+    save_cache({username: events})
+
+    print_activity(events)
 
 
 if __name__ == "__main__":

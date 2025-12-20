@@ -31,12 +31,3 @@ def save_cache(cache=None, filename=FILENAME):
     except Exception as e:
         print(f"Error saving cache to {filename}: {e}")
         raise
-
-
-def clean_cache(filename=FILENAME):
-    try:
-        with open(filename, "w") as f:
-            json.dump({}, f, indent=4)
-    except Exception as e:
-        print(f"Error cleaning cache in {filename}: {e}")
-        raise
